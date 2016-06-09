@@ -1,0 +1,152 @@
+<!DOCTYPE html> <!--Establish that the page is HTML-->
+<html>
+<head>
+	<!--Adds the title of the website and links to the Cascading Style-->
+<title> HTHS Circuit Solver </title>
+	<link rel="stylesheet" href="SickCircuitCSS.css">
+</head>
+<body>
+	<h1 id = "mainmenu">&nbsp; circuit solver. </h1> <!--Heading of the website-->
+	<nav>
+		<ul>
+			<!--Links to other pages of the site-->
+			<li><a href='Home.html'>Home</a></li>
+			<li><a href='Circuit_Solver.html'>Circuit Solver</a></li>
+			<li><a href='Educational.html'>Educational Materials</a></li>
+		</ul>
+	</nav>
+<br/><br/><br/>
+<p id ="instructions"> <!--Instructions to describe the function of the current page -->
+Here are some review materials to help you remember how to solve circuits. Afterwards, use the flashcards to test your knowledge!
+</p> 
+<br><br>
+<p id = 'instructions'>
+	Tutorial:
+</p>
+<p class = "tutorial">
+	In order to "solve" a simple circuit, one must obtain the total voltage, resistance, and current of the circuit, as well as the individual voltage, resistance and current of each component in the circuit. In this tutorial, the various aspects of circuits, applicable equations, and ways to solve simple circuits will be discussed. After the tutorial, there are some flashcards to help you study or quiz yourself.
+	<br><br>
+	<i>Voltage:</i>
+	Voltage can be defined as the electric potential energy per unit charge. As a result, the units of this quantity is "joules per coulomb", which is commonly referred to as volts. Voltage is also known as "electric potential". In a series circuit, voltage experiences drops in strength after passing through components, like a resistor. However, the sum of these voltages is equivalent to the total voltage in a series circuit. In a parallel circuit, the voltage is equal across each branch (assuming thre)
+	<br>
+	<br>
+	<i>Resistance:</i>
+	<br>
+	<i>Current:</i>
+	<br>
+	What is current? Current measures the flow of charge through a circuit. The units for current is a Coulomb per second. The SI base unit for current is the Ampere, or "Amp", which has the symbol A. In a series circuit, the amount of current through each component is the same. However, in a parallel circuit, the current through each component changes. 
+
+</p>
+<br><br>
+<p id = 'instructions'>
+	Flashcards:
+</p>
+<table>
+	<tr>
+		<td>
+			<div class="container" ontouchstart="this.classList.toggle('hover');">
+				<div class="flip">
+					<div class="front">
+						<b>Parallel Circuit #1</b>
+			
+						<img src = 'http://sub.allaboutcircuits.com/images/00083.png', width = 300px>
+						<br>
+							<div class = "question">
+							What equation would solve for the overall resistance of the equation?
+							</div>
+					</div>
+					<div class="back">
+						<div class="answer">
+						To solve for the overall resistance of a parallel circuit the following formula is used: 
+						</div>
+						<img src = 'https://www.ibiblio.org/kuphaldt/electricCircuits/DC/10075.png'>
+						<br>
+						<div class="answer">
+						The total resistance is equal to the reciprocal of the sum of the reciprocals of the resistance for each individual resistor.
+						</div>
+					</div>
+				</div>	
+			</div>
+		</td>
+		<td>
+			<div class="container" ontouchstart="this.classList.toggle('hover');">
+				<div class="flip">
+					<div class="front">
+						<b>Series Circuit #1</b>
+						<img src = 'http://sub.allaboutcircuits.com/images/00082.png', width=220px>
+							<div class = "question">
+							What equation would solve for the overall resistance of the equation?
+							</div>
+					</div>
+					<div class="back">
+						<div class="answer">
+						To solve for the overall resistance of a series circuit the following formula is used: 
+						</div>
+						<img src = 'http://www.radio-electronics.com/images/resistors-in-series-formula-01.gif', width= 300px>
+						<br>
+						<div class="answer">
+						The total resistance is equal to the sum of the resistance for each individual resistor.
+						</div>
+					</div>
+				</div>	
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div class="container" ontouchstart="this.classList.toggle('hover');">
+				<div class="flip">
+					<div class="front">
+						<b>Practice Problem #1</b>
+						<br><br>
+						<img src = 'http://sub.allaboutcircuits.com/images/00092.png', width = 300px>
+						<br>
+							<div class = "question">
+							What is the total resistance of the circuit?
+							</div>
+					</div>
+					<div class="back">
+						<div class="answer">
+						To solve for the overall resistance of a parallel circuit the following formula is used: 
+						</div>
+						<img src = 'https://www.ibiblio.org/kuphaldt/electricCircuits/DC/10075.png'>
+						<br>
+						<div class="answer">
+						Using the above formula, the total resistance of the circuit is 0.625 kOhms, or 625 Ohms
+						</div>
+					</div>
+				</div>	
+			</div>
+		</td>
+		<td>
+			<div class="container" ontouchstart="this.classList.toggle('hover');">
+				<div class="flip">
+					<div class="front">
+						<b>Practice Problem #2</b>
+			
+						<img src = 'http://sub.allaboutcircuits.com/images/00087.png', width = 270px>
+						<br>
+							<div class = "question">
+							What is the total resistance of the circuit?
+							</div>
+					</div>
+					<div class="back">
+						<div class="answer">
+						To solve for the overall resistance of a parallel circuit the following formula is used: 
+						</div>
+						<img src = 'http://www.radio-electronics.com/images/resistors-in-series-formula-01.gif', width= 300px>
+						<br>
+						<div class="answer">
+						The total resistance in this problem is equal to 3 kOhms + 10 kOhms + 5 kOhms according to the formula, giving a total resistance value of 18 kOhms.
+						</div>
+					</div>
+				</div>	
+			</div>
+		</td>
+	</tr>
+</table>
+<div id = "help"> <!--Link to help documentation page-->
+	<p><a href='Help.html'>?</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,810 @@
+<!DOCTYPE html> <!--Establish that the page is HTML-->
+<html>
+<head>
+	<!--Adds the title of the website and links to the Cascading Style-->
+<title> HTHS Circuit Solver </title>
+	<link rel="stylesheet" href="SickCircuitCSS.css">
+	<!--Import style sheet with Materialize-->
+
+<script>
+
+//create battery element
+//with necessary attributes for drag and drop
+var btry1 = document.createElement("IMG");
+btry1.setAttribute("id", "bdrag1");
+btry1.setAttribute("draggable", "true");
+btry1.setAttribute("ondragstart", "drag(event)");
+
+//create individual resistor elements
+//with necessary attributes for drag and drop
+var rstr1 = document.createElement("IMG");
+rstr1.setAttribute("id", "rdrag1");
+rstr1.setAttribute("draggable", "true");
+rstr1.setAttribute("ondragstart", "drag(event)");
+
+var rstr2 = document.createElement("IMG");
+rstr2.setAttribute("id", "rdrag2");
+rstr2.setAttribute("draggable", "true");
+rstr2.setAttribute("ondragstart", "drag(event)");
+
+var rstr3 = document.createElement("IMG");
+rstr3.setAttribute("id", "rdrag3");
+rstr3.setAttribute("draggable", "true");
+rstr3.setAttribute("ondragstart", "drag(event)");
+
+var rstr4 = document.createElement("IMG");
+rstr4.setAttribute("id", "rdrag4");
+rstr4.setAttribute("draggable", "true");
+rstr4.setAttribute("ondragstart", "drag(event)");
+
+var rstr5 = document.createElement("IMG");
+rstr5.setAttribute("id", "rdrag5");
+rstr5.setAttribute("draggable", "true");
+rstr5.setAttribute("ondragstart", "drag(event)");
+
+var rstr6 = document.createElement("IMG");
+rstr6.setAttribute("id", "rdrag6");
+rstr6.setAttribute("draggable", "true");
+rstr6.setAttribute("ondragstart", "drag(event)");
+
+var rstr7 = document.createElement("IMG");
+rstr7.setAttribute("id", "rdrag7");
+rstr7.setAttribute("draggable", "true");
+rstr7.setAttribute("ondragstart", "drag(event)");
+
+var rstr8 = document.createElement("IMG");
+rstr8.setAttribute("id", "rdrag8");
+rstr8.setAttribute("draggable", "true");
+rstr8.setAttribute("ondragstart", "drag(event)");
+
+var rstr9 = document.createElement("IMG");
+rstr9.setAttribute("id", "rdrag9");
+rstr9.setAttribute("draggable", "true");
+rstr9.setAttribute("ondragstart", "drag(event)");
+
+var rstr10 = document.createElement("IMG");
+rstr10.setAttribute("id", "rdrag10");
+rstr10.setAttribute("draggable", "true");
+rstr10.setAttribute("ondragstart", "drag(event)");
+
+//create individual wire elements
+//with necessary attributes for drag and drop
+var wire1 = document.createElement("IMG");
+wire1.setAttribute("id", "wdrag1");
+wire1.setAttribute("draggable", "true");
+wire1.setAttribute("ondragstart", "drag(event)");
+
+var wire2 = document.createElement("IMG");
+wire2.setAttribute("id", "wdrag2");
+wire2.setAttribute("draggable", "true");
+wire2.setAttribute("ondragstart", "drag(event)");
+
+var wire3 = document.createElement("IMG");
+wire3.setAttribute("id", "wdrag3");
+wire3.setAttribute("draggable", "true");
+wire3.setAttribute("ondragstart", "drag(event)");
+
+var wire4 = document.createElement("IMG");
+wire4.setAttribute("id", "wdrag4");
+wire4.setAttribute("draggable", "true");
+wire4.setAttribute("ondragstart", "drag(event)");
+
+var wire5 = document.createElement("IMG");
+wire5.setAttribute("id", "wdrag5");
+wire5.setAttribute("draggable", "true");
+wire5.setAttribute("ondragstart", "drag(event)");
+
+//create individual double resistor elements
+//with necessary attributes for drag and drop
+var dpar1 = document.createElement("IMG");
+dpar1.setAttribute("id", "2drag1");
+dpar1.setAttribute("draggable", "true");
+dpar1.setAttribute("ondragstart", "drag(event)");
+
+var dpar2 = document.createElement("IMG");
+dpar2.setAttribute("id", "2drag2");
+dpar2.setAttribute("draggable", "true");
+dpar2.setAttribute("ondragstart", "drag(event)");
+
+var dpar3 = document.createElement("IMG");
+dpar3.setAttribute("id", "2drag3");
+dpar3.setAttribute("draggable", "true");
+dpar3.setAttribute("ondragstart", "drag(event)");
+
+var dpar4 = document.createElement("IMG");
+dpar4.setAttribute("id", "2drag4");
+dpar4.setAttribute("draggable", "true");
+dpar4.setAttribute("ondragstart", "drag(event)");
+
+var dpar5 = document.createElement("IMG");
+dpar5.setAttribute("id", "2drag5");
+dpar5.setAttribute("draggable", "true");
+dpar5.setAttribute("ondragstart", "drag(event)");
+
+//create individual triple resistor elements
+//with necessary attributes for drag and drop
+var tpar1 = document.createElement("IMG");
+tpar1.setAttribute("id", "3drag1");
+tpar1.setAttribute("draggable", "true");
+tpar1.setAttribute("ondragstart", "drag(event)");
+
+var tpar2 = document.createElement("IMG");
+tpar2.setAttribute("id", "3drag2");
+tpar2.setAttribute("draggable", "true");
+tpar2.setAttribute("ondragstart", "drag(event)");
+
+var tpar3 = document.createElement("IMG");
+tpar3.setAttribute("id", "3drag3");
+tpar3.setAttribute("draggable", "true");
+tpar3.setAttribute("ondragstart", "drag(event)");
+
+var tpar4 = document.createElement("IMG");
+tpar4.setAttribute("id", "3drag4");
+tpar4.setAttribute("draggable", "true");
+tpar4.setAttribute("ondragstart", "drag(event)");
+
+var tpar5 = document.createElement("IMG");
+tpar5.setAttribute("id", "3drag5");
+tpar5.setAttribute("draggable", "true");
+tpar5.setAttribute("ondragstart", "drag(event)");
+
+//declare global variables for later use in calculations
+var resistances=[]
+var voltage=0
+
+function createTable() {
+	/* dynamically generates table onto webpage
+	onto which the user drops elements to build a circuit */
+    
+	var invalidTable = true; //one-way flag to determine validity of table
+
+    while (invalidTable) {
+		/* loop runs while the table cannot be created.
+		Error handling. Loop ends when valind input has been submitted. */
+		
+        var elements = window.prompt("How many elements are in the circuit?"); //Prompt user for elements in circuit
+        if (elements > 20) {
+            window.alert("This circuit solver can handle a maximum of 20 elements."); //Error if too many elements requested
+        }
+
+        else if (elements <= 0) {
+            window.alert("Be reasonable. Enter a positive whole number."); //Error if negative number submitted
+        }
+
+        else if (isNaN(elements)) {
+            window.alert("That wasn't an integer. Try again"); //Error if non-number submitted
+        }
+        else {
+            invalidTable = false; //Stops the loop if valid input used
+        }
+    }
+
+	var circuitTable = "<table><tbody><tr>"; //begins generation of table
+    circuitTable += "<td><img id='myP' style='visibility:hidden' src='topleft.png' class='componentImg'></td>"; //Adds hidden connector wire
+
+    for (var i = 0; i < elements; i += 2) {
+		/* first row of table is generated. Half the number of elements is generated here.
+		Every cell in table has the ability to be dragged into. */
+        circuitTable += "<td><div class='circuitTable' ondrop='drop(event)' ondragover='allowDrop(event)'></div></td>";
+    }
+
+    circuitTable += "<td><img id='myB' style='visibility:hidden' src='topright.png' class='componentImg'></td>"; //Adds hidden connector wire
+    circuitTable += "</tr><tr>";
+    circuitTable += "<td><img id='myA' style='visibility:hidden' src='bottomleft.png' class='componentImg'></td>"; //Adds hidden connector wire
+
+    for (var i = 0; i < elements; i += 2) {
+		/* second row of table is generated. Half the number of elements is generated here.
+		Every cell in table has the ability to be dragged into. */
+        circuitTable += "<td><div class='circuitTable' ondrop='drop(event)' ondragover='allowDrop(event)'></div></td>";
+    }
+
+    circuitTable += "<td><img id='myC' style='visibility:hidden' src='bottomright.png' class='componentImg'></td>"; //Adds hidden connector wire
+    circuitTable += "</tr></tbody></table>";
+    document.getElementById('jsTable').innerHTML = circuitTable; //Creates table on HTML page
+
+}
+
+//Allows images to be dropped
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+//Transfers data of image when dragged
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+
+}
+
+//events when element is dropped into the circuit
+function drop(ev) {
+	/* When user drops an image, info about which image is obtained.
+	Data is stored. User then inputs information about the element they added to
+	the circuit which is pushed to the math function. */
+    ev.preventDefault(); //allows images to be dropped
+    var data = ev.dataTransfer.getData("text");	//obtains data from image
+    ev.target.appendChild(document.getElementById(data)); //Stores data from image
+    switch(data){
+		// switch statement handles all the possible images that can be dragged into table
+    	case "bdrag1": //battery dropped into table
+            if (document.getElementById(data).getAttribute("Voltage") == null) {  //check if battery has already been assigned a value
+                while (isNaN(voltage) || voltage <= 0) { //while invalid value for voltage
+            		voltage = Number(prompt("What's the voltage of this battery?")); //prompts the user for the voltage of the battery and stores
+                    if (isNaN(voltage) || voltage <= 0) {
+                        window.alert("Please enter a value greater than zero"); //error message if invalid input
+                    }
+                }
+                document.getElementById(data).setAttribute("Voltage", voltage); //stores information
+                document.getElementById(data).setAttribute("title", "The voltage is " + voltage + " volts"); //creates hovertext for image
+            }
+    		break;
+		
+		/* Functionality of cases rdrag1 through rdrag10 are identical. rdrag1 is explained
+		through comments. rdrag2 through rdrag10's comments would be the same as rdrag1's. */
+		case "rdrag1": 
+            if (document.getElementById(data).getAttribute("Resistance") == null) { //check if resistor has already been assigned a value
+                var resistance = Number(prompt("What's the resistance of this resistor?")); //prompt user for value of resistor
+				while (isNaN(resistance) || resistance <= 0) { //while the input is invalid
+					window.alert("Please enter a value greater than zero");	//error message			
+            		resistance = Number(prompt("What's the resistance of this resistor?")); //prompt user again
+                }
+        		document.getElementById(data).setAttribute("Resistance", resistance); //store info
+        		resistances.push(resistance); //push info to math function
+        		document.getElementById(data).setAttribute("title", "The resistance is " + resistance + " Ohms"); //create hovertext for image
+            }
+    		break;
+
+    	case "rdrag2":
+    		if (document.getElementById(data).getAttribute("Resistance") == null) {
+                var resistance = Number(prompt("What's the resistance of this resistor?"));
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+                document.getElementById(data).setAttribute("Resistance", resistance);
+                resistances.push(resistance);
+                document.getElementById(data).setAttribute("title", "The resistance is " + resistance + " Ohms");
+            }
+    		break;
+
+    	case "rdrag3":
+	    	if (document.getElementById(data).getAttribute("Resistance") == null) {
+                var resistance = Number(prompt("What's the resistance of this resistor?"));
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+                document.getElementById(data).setAttribute("Resistance", resistance);
+                resistances.push(resistance);
+                document.getElementById(data).setAttribute("title", "The resistance is " + resistance + " Ohms");
+            }
+	    	break;
+
+        case "rdrag4":
+            if (document.getElementById(data).getAttribute("Resistance") == null) {
+                var resistance = Number(prompt("What's the resistance of this resistor?"));
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+                document.getElementById(data).setAttribute("Resistance", resistance);
+                resistances.push(resistance);
+                document.getElementById(data).setAttribute("title", "The resistance is " + resistance + " Ohms");
+            }
+            break;
+
+        case "rdrag5":
+            if (document.getElementById(data).getAttribute("Resistance") == null) {
+				var resistance = Number(prompt("What's the resistance of this resistor?"));
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+                document.getElementById(data).setAttribute("Resistance", resistance);
+                resistances.push(resistance);
+                document.getElementById(data).setAttribute("title", "The resistance is " + resistance + " Ohms");
+            }
+            break;
+
+        case "rdrag6":
+            if (document.getElementById(data).getAttribute("Resistance") == null) {
+                var resistance = Number(prompt("What's the resistance of this resistor?"));
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+                document.getElementById(data).setAttribute("Resistance", resistance);
+                resistances.push(resistance);
+                document.getElementById(data).setAttribute("title", "The resistance is " + resistance + " Ohms");
+            }
+            break;
+
+        case "rdrag7":
+            if (document.getElementById(data).getAttribute("Resistance") == null) {
+                var resistance = Number(prompt("What's the resistance of this resistor?"));
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+                document.getElementById(data).setAttribute("Resistance", resistance);
+                resistances.push(resistance);
+                document.getElementById(data).setAttribute("title", "The resistance is " + resistance + " Ohms");
+            }
+            break;
+
+        case "rdrag8":
+            if (document.getElementById(data).getAttribute("Resistance") == null) {
+                var resistance = Number(prompt("What's the resistance of this resistor?"));
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+                document.getElementById(data).setAttribute("Resistance", resistance);
+                resistances.push(resistance);
+                document.getElementById(data).setAttribute("title", "The resistance is " + resistance + " Ohms");
+            }
+            break;
+
+        case "rdrag9":
+            if (document.getElementById(data).getAttribute("Resistance") == null) {
+                var resistance = Number(prompt("What's the resistance of this resistor?"));
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+                document.getElementById(data).setAttribute("Resistance", resistance);
+                resistances.push(resistance);
+                document.getElementById(data).setAttribute("title", "The resistance is " + resistance + " Ohms");
+            }
+            break;
+
+        case "rdrag10":
+            if (document.getElementById(data).getAttribute("Resistance") == null) {
+                var resistance = Number(prompt("What's the resistance of this resistor?"));
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+                document.getElementById(data).setAttribute("Resistance", resistance);
+                resistances.push(resistance);
+                document.getElementById(data).setAttribute("title", "The resistance is " + resistance + " Ohms");
+            }
+            break;
+			
+		/* Functionality of cases 2drag1 through 2drag5 are identical. 2drag1 is explained
+		through comments. 2drag2 through 2drag5's comments would be the same as 2drag1's. */
+    	case "2drag1":
+            if (document.getElementById(data).getAttribute("parResistances") == null) { //check is resistor has already been assigned a value
+				
+				/* Same process as used in the single resistors in the previous 10 cases, 
+				just repeated for the parallel resistor*/
+    	    	var resistance = Number(prompt("What's the resistance of the first resistor?"))
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+    	    	var resistance2 = Number(prompt("What's the resistance of the second resistor?"))
+				while (isNaN(resistance2) || resistance2 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance2 = Number(prompt("What's the resistance of this resistor?"));
+                }
+    	    	var parResistances=[resistance,resistance2]; //stores resistances as list
+				
+				//store all collected data
+    	    	document.getElementById(data).setAttribute("Resistance1", resistance);
+    	    	document.getElementById(data).setAttribute("Resistance2", resistance2);
+    	    	document.getElementById(data).setAttribute("parResistances", parResistances);
+    	    	resistances.push(parResistances); //send data to math function
+                document.getElementById(data).setAttribute("title", "The top resistor is " + resistance + " Ohms. The bottom resistor is " + resistance2 + " Ohms."); //create hovertext for image
+            }
+	    	break;
+
+    	case "2drag2":
+	    	if (document.getElementById(data).getAttribute("parResistances") == null) {
+                var resistance = Number(prompt("What's the resistance of the first resistor?"))
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+    	    	var resistance2 = Number(prompt("What's the resistance of the second resistor?"))
+				while (isNaN(resistance2) || resistance2 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance2 = Number(prompt("What's the resistance of this resistor?"));
+                }
+                var parResistances=[resistance,resistance2];
+                document.getElementById(data).setAttribute("Resistance1", resistance);
+                document.getElementById(data).setAttribute("Resistance2", resistance2);
+                document.getElementById(data).setAttribute("parResistances", parResistances);
+                resistances.push(parResistances);
+                document.getElementById(data).setAttribute("title", "The top resistor is " + resistance + " Ohms. The bottom resistor is " + resistance2 + " Ohms.");
+            }
+	    	break;
+
+    	case "2drag3":
+	    	if (document.getElementById(data).getAttribute("parResistances") == null) {
+                var resistance = Number(prompt("What's the resistance of the first resistor?"))
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+    	    	var resistance2 = Number(prompt("What's the resistance of the second resistor?"))
+				while (isNaN(resistance2) || resistance2 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance2 = Number(prompt("What's the resistance of this resistor?"));
+                }
+                var parResistances=[resistance,resistance2];
+                document.getElementById(data).setAttribute("Resistance1", resistance);
+                document.getElementById(data).setAttribute("Resistance2", resistance2);
+                document.getElementById(data).setAttribute("parResistances", parResistances);
+                resistances.push(parResistances);
+                document.getElementById(data).setAttribute("title", "The top resistor is " + resistance + " Ohms. The bottom resistor is " + resistance2 + " Ohms.");
+            }
+	    	break;
+
+        case "2drag4":
+            if (document.getElementById(data).getAttribute("parResistances") == null) {
+                var resistance = Number(prompt("What's the resistance of the first resistor?"))
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+    	    	var resistance2 = Number(prompt("What's the resistance of the second resistor?"))
+				while (isNaN(resistance2) || resistance2 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance2 = Number(prompt("What's the resistance of this resistor?"));
+                }
+                var parResistances=[resistance,resistance2];
+                document.getElementById(data).setAttribute("Resistance1", resistance);
+                document.getElementById(data).setAttribute("Resistance2", resistance2);
+                document.getElementById(data).setAttribute("parResistances", parResistances);
+                resistances.push(parResistances);
+                document.getElementById(data).setAttribute("title", "The top resistor is " + resistance + " Ohms. The bottom resistor is " + resistance2 + " Ohms.");
+            }
+            break;
+
+        case "2drag5":
+            if (document.getElementById(data).getAttribute("parResistances") == null) {
+                var resistance = Number(prompt("What's the resistance of the first resistor?"))
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+    	    	var resistance2 = Number(prompt("What's the resistance of the second resistor?"))
+				while (isNaN(resistance2) || resistance2 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance2 = Number(prompt("What's the resistance of this resistor?"));
+                }
+                var parResistances=[resistance,resistance2];
+                document.getElementById(data).setAttribute("Resistance1", resistance);
+                document.getElementById(data).setAttribute("Resistance2", resistance2);
+                document.getElementById(data).setAttribute("parResistances", parResistances);
+                resistances.push(parResistances);
+                document.getElementById(data).setAttribute("title", "The top resistor is " + resistance + " Ohms. The bottom resistor is " + resistance2 + " Ohms.");
+            }
+            break;
+
+		/* Functionality of cases 3dragX are almost exactly the same as the functionality
+		of the 2dragX cases. The only change is one more resistor with the accompanying steps. 
+		Understanding 3dragX can be done by looking at 2dragX. */
+        case "3drag1":
+            if (document.getElementById(data).getAttribute("parResistances") == null) {
+                var resistance = Number(prompt("What's the resistance of the first resistor?"))
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+    	    	var resistance2 = Number(prompt("What's the resistance of the second resistor?"))
+				while (isNaN(resistance2) || resistance2 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance2 = Number(prompt("What's the resistance of this resistor?"));
+                }
+                var resistance3 = Number(prompt("What's the resistance of the third resistor?"))
+				while (isNaN(resistance3) || resistance3 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance3 = Number(prompt("What's the resistance of this resistor?"));
+                }
+                var parResistances=[resistance,resistance2,resistance3];
+                document.getElementById(data).setAttribute("Resistance1", resistance);
+                document.getElementById(data).setAttribute("Resistance2", resistance2);
+                document.getElementById(data).setAttribute("Resistance3", resistance3);
+                document.getElementById(data).setAttribute("parResistances", parResistances);
+                resistances.push(parResistances);
+                document.getElementById(data).setAttribute("title", "The top resistor is " + resistance + " Ohms. The middle resistor is " + resistance2 + " Ohms. The bottom resistor is " + resistance3 + " Ohms.");
+            }
+            break;
+
+        case "3drag2":
+            if (document.getElementById(data).getAttribute("parResistances") == null) {
+                var resistance = Number(prompt("What's the resistance of the first resistor?"))
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+    	    	var resistance2 = Number(prompt("What's the resistance of the second resistor?"))
+				while (isNaN(resistance2) || resistance2 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance2 = Number(prompt("What's the resistance of this resistor?"));
+                }
+                var resistance3 = Number(prompt("What's the resistance of the third resistor?"))
+				while (isNaN(resistance3) || resistance3 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance3 = Number(prompt("What's the resistance of this resistor?"));
+                }
+                var parResistances=[resistance,resistance2,resistance3];
+                document.getElementById(data).setAttribute("Resistance1", resistance);
+                document.getElementById(data).setAttribute("Resistance2", resistance2);
+                document.getElementById(data).setAttribute("Resistance3", resistance3);
+                document.getElementById(data).setAttribute("parResistances", parResistances);
+                resistances.push(parResistances);
+                document.getElementById(data).setAttribute("title", "The top resistor is " + resistance + " Ohms. The middle resistor is " + resistance2 + " Ohms. The bottom resistor is " + resistance3 + " Ohms.");
+            }
+            break;
+
+        case "3drag3":
+            if (document.getElementById(data).getAttribute("parResistances") == null) {
+               var resistance = Number(prompt("What's the resistance of the first resistor?"))
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+    	    	var resistance2 = Number(prompt("What's the resistance of the second resistor?"))
+				while (isNaN(resistance2) || resistance2 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance2 = Number(prompt("What's the resistance of this resistor?"));
+                }
+                var resistance3 = Number(prompt("What's the resistance of the third resistor?"))
+				while (isNaN(resistance3) || resistance3 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance3 = Number(prompt("What's the resistance of this resistor?"));
+                }
+                var parResistances=[resistance,resistance2,resistance3];
+                document.getElementById(data).setAttribute("Resistance1", resistance);
+                document.getElementById(data).setAttribute("Resistance2", resistance2);
+                document.getElementById(data).setAttribute("Resistance3", resistance3);
+                document.getElementById(data).setAttribute("parResistances", parResistances);
+                resistances.push(parResistances);
+                document.getElementById(data).setAttribute("title", "The top resistor is " + resistance + " Ohms. The middle resistor is " + resistance2 + " Ohms. The bottom resistor is " + resistance3 + " Ohms.");
+            }  
+            break;
+
+        case "3drag4":
+            if (document.getElementById(data).getAttribute("parResistances") == null) {
+                var resistance = Number(prompt("What's the resistance of the first resistor?"))
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+    	    	var resistance2 = Number(prompt("What's the resistance of the second resistor?"))
+				while (isNaN(resistance2) || resistance2 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance2 = Number(prompt("What's the resistance of this resistor?"));
+                }
+                var resistance3 = Number(prompt("What's the resistance of the third resistor?"))
+				while (isNaN(resistance3) || resistance3 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance3 = Number(prompt("What's the resistance of this resistor?"));
+                }
+                var parResistances=[resistance,resistance2,resistance3];
+                document.getElementById(data).setAttribute("Resistance1", resistance);
+                document.getElementById(data).setAttribute("Resistance2", resistance2);
+                document.getElementById(data).setAttribute("Resistance3", resistance3);
+                document.getElementById(data).setAttribute("parResistances", parResistances);
+                resistances.push(parResistances);
+                document.getElementById(data).setAttribute("title", "The top resistor is " + resistance + " Ohms. The middle resistor is " + resistance2 + " Ohms. The bottom resistor is " + resistance3 + " Ohms.");
+            }  
+            break;
+
+        case "3drag5":
+            if (document.getElementById(data).getAttribute("parResistances") == null) {
+                var resistance = Number(prompt("What's the resistance of the first resistor?"))
+				while (isNaN(resistance) || resistance <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance = Number(prompt("What's the resistance of this resistor?"));
+                }
+    	    	var resistance2 = Number(prompt("What's the resistance of the second resistor?"))
+				while (isNaN(resistance2) || resistance2 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance2 = Number(prompt("What's the resistance of this resistor?"));
+                }
+                var resistance3 = Number(prompt("What's the resistance of the third resistor?"))
+				while (isNaN(resistance3) || resistance3 <= 0) {
+					window.alert("Please enter a value greater than zero");				
+            		resistance3 = Number(prompt("What's the resistance of this resistor?"));
+                }
+                var parResistances=[resistance,resistance2,resistance3];
+                document.getElementById(data).setAttribute("Resistance1", resistance);
+                document.getElementById(data).setAttribute("Resistance2", resistance2);
+                document.getElementById(data).setAttribute("Resistance3", resistance3);
+                document.getElementById(data).setAttribute("parResistances", parResistances);
+                resistances.push(parResistances);
+                document.getElementById(data).setAttribute("title", "The top resistor is " + resistance + " Ohms. The middle resistor is " + resistance2 + " Ohms. The bottom resistor is " + resistance3 + " Ohms.");
+            }  
+            break;
+    }
+}
+
+//solve for resistance and voltage
+function circuit_solver(resistances,voltage){
+    //declare variables to be used later
+    output=""
+    var total_resistance=0.0; 
+    for (i in resistances) {
+        //if there is an array meaning parallel branch
+        if (typeof(resistances[i])=="object"){
+            var equal_resistance=0.0
+            //add recipricols of each resistor 
+            //this is the method for parallel branches
+            for (a in resistances[i]){
+                equal_resistance+=(1.0/resistances[i][a])
+            }
+            //take reciprcol (part of method)
+            equal_resistance=1.0/equal_resistance
+            total_resistance+=equal_resistance
+        }
+        //if series resistor, just add to total resistance
+        else{
+            total_resistance+=resistances[i]
+        }
+    }
+
+    //find current using I=V/R
+    var current=voltage/total_resistance
+    for (i in resistances) {
+        //if parallel branch, find equivalent resistance
+        if (typeof(resistances[i])=="object"){
+
+            var equiv_resistance=0.0
+            for (a in resistances[i]){
+                equiv_resistance+=(1.0/resistances[i][a])
+            }
+            equiv_resistance=1.0/equiv_resistance;
+            //use that equivalen resistance to find 
+            //voltage drop for the branches of the parallel branch
+            var voltage_drop=current*equiv_resistance;
+            //for each resistor in parallel branch
+            for (a in resistances[i]){
+                //find current using I=V/R
+                var parallel_current=voltage_drop/resistances[i][a];
+                //add resistor name, voltage, and curent to output in table format
+                output+="<tr><td>" + resistances[i][a]
+                output+=" Ohms</td><td>"
+                output+=Number((voltage_drop).toFixed(4)) + " Volts</td>"
+                output+="<td>"+ Number((parallel_current).toFixed(4)) + " Amps</td>"
+                output+="<tr />";
+            }
+        }
+
+        else{
+            //find voltage with V=IR
+            var voltage_drop=current*resistances[i];
+            //add resistor name, voltage, and curent to output in table format
+            output+="<tr><td>" + resistances[i]
+            output+=" Ohms</td><td>"
+            output+=Number((voltage_drop).toFixed(4)) + " Volts</td>"
+            output+="<td>" + Number((current).toFixed(4)) + " Amps</td>"
+            output+="<tr />";
+        }
+    }
+    return output;
+} 
+
+//on "submit circuit" display the correct values 
+function displayVoltages() {
+	var outputTable = "<table><thead><tr><th colspan='3'>Results from Circuit</th></tr><tr><th>Resistance</th><th>Voltage</th><th>Current</th></thead><tbody>";
+	outputTable += circuit_solver(resistances, voltage);
+	outputTable += "</tbody></table>";
+    $('#outputTable').css('border', '1px solid #000000');
+    document.getElementById('outputTable').innerHTML = outputTable;
+}
+
+//When "Submit Circuit" button is pressed, show the images to connect sides of circuit
+function connectCircuit(){
+    document.getElementById("myP").style.visibility = "visible";
+    document.getElementById("myA").style.visibility = "visible";
+    document.getElementById("myB").style.visibility = "visible";
+    document.getElementById("myC").style.visibility = "visible";
+    $('.circuitTable').css('border', '0');
+} 
+
+function reloadPage() {
+    location.reload();
+}
+
+</script>
+</head>
+<body onload="createTable()">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="materialize.min.js"></script>
+	<h1 id ="mainmenu">&nbsp; circuit solver.   </h1> <!--Heading of the website-->
+	<nav>
+		<ul>
+			<!--Links to other pages of the site-->
+			<li><a href='Home.html'>Home</a></li>
+			<li><a href='Circuit_Solver.html'>Circuit Solver</a></li>
+			<li><a href='Educational.html'>Educational Materials</a></li>
+		</ul>
+	</nav>
+<br/><br/><br/>
+<p id ="instructions"> <!--Instructions to describe the function of the current page -->
+Welcome to the Circuit Solver. Enter the parameters and watch your circuit be solved 
+before your eyes.
+</p>
+
+<table id = "jsTable"></table> <!-- Dynamically generated Table placed here -->
+
+<ul class="collapsible" data-collapsible="accordion"> <!-- Materialize Library used to generated accordion-->
+<li>
+	<!--tab with one battery-->
+	<div class="collapsible-header">Battery (The One And Only)</div>
+  	<div class="collapsible-body">
+  		<img id="bdrag1" src="battery.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+	</div>
+</li>
+<li>
+	<!--tab with ten single resistors-->
+	<div class="collapsible-header">Resistors</div>
+	<div class="collapsible-body">
+		<img id="rdrag1" src="resistor.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+		<img id="rdrag2" src="resistor.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+		<img id="rdrag3" src="resistor.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+        <img id="rdrag4" src="resistor.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+        <img id="rdrag5" src="resistor.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+        <img id="rdrag6" src="resistor.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+        <img id="rdrag7" src="resistor.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+        <img id="rdrag8" src="resistor.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+        <img id="rdrag9" src="resistor.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+        <img id="rdrag10" src="resistor.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+	</div>
+</li>
+<li>
+	<!--tab with five wires-->
+	<div class="collapsible-header">Wires</div>
+	<div class="collapsible-body">
+		<img id="wdrag1" src="wire.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+		<img id="wdrag2" src="wire.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+		<img id="wdrag3" src="wire.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+        <img id="wdrag4" src="wire.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+        <img id="wdrag5" src="wire.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+	</div>
+</li>
+<li>
+	<!--tab with five two branch resistors-->
+	<div class="collapsible-header">2-Branch Parallel Circuit</div>
+	<div class="collapsible-body">
+		<img id="2drag1" src="parallel2.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+		<img id="2drag2" src="parallel2.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+		<img id="2drag3" src="parallel2.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+        <img id="2drag4" src="parallel2.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+        <img id="2drag5" src="parallel2.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+	</div>
+</li>
+<li>
+	<!--tab with three three branch resistors-->
+	<div class="collapsible-header">3-Branch Parallel Circuit</div>
+	<div class="collapsible-body">
+		<img id="3drag1" src="parallel3.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+		<img id="3drag2" src="parallel3.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+		<img id="3drag3" src="parallel3.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+        <img id="3drag4" src="parallel3.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+        <img id="3drag5" src="parallel3.png" draggable="true" ondragstart="drag(event)" class="componentImg">
+	</div>
+</li>
+</ul>
+
+<div id="container"> <!-- Centers buttons on page -->
+	<!--Button to connect circuit and display voltage-->
+	<button class="circuitSolverButtons" onclick="displayVoltages();connectCircuit()">Submit Circuit</button>
+	<!--Button to reload the page-->
+	<button class="circuitSolverButtons" onclick="reloadPage()">Make a New Circuit</button>
+</div>
+<br />
+<br />
+<!-- Location of output -->
+<p id = "outputTitle"></p>
+<table id = "outputTable"></table>
+
+
+<div id = "help"> <!--Link to help documentation page-->
+	<p><a href='Help.html'>?</a></p>
+</div>
+</body>
+</html>

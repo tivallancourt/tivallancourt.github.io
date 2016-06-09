@@ -1,0 +1,23 @@
+Change Log
+
+Dec 7, 2015
+Uploaded test images to be used with the image manipulation program.
+Created initial mosaic building program. Capable of taking two images and making a pattern out of them.
+Changed from creating an image file at the end to showing the image in the Python Viewer using PIL images.
+Added ability to round images.
+
+Dec 9, 2015
+Bug fixes to rounding feature.
+Caused output to always be squared to avoid weird stretching.
+Added image interpolation to the prevent the images from becoming too pixelated.
+Added filters that the user could apply to the image.
+Began work on a looping process to create mosaic instead of hardcoding.
+Various bug fixes to other features.
+
+Dec 11, 2015
+Deleted extra code.
+Added comments.
+Fixes to mosaic design.
+Fixes to filters.
+Completion of looping process.
+Added 3rd mosaic iteration to program, hardcoded.

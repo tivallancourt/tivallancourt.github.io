@@ -1,0 +1,398 @@
+@keyframes Fade { /*Animation for the fade in*/
+	0% {
+		opacity:0;
+	}
+	100% {
+		opacity:1;
+	}
+}
+html { /*Makes sure the scroll bar is always present */
+overflow: -moz-scrollbars-vertical; 
+overflow-y: scroll;
+}
+
+body {  /*Creates the background color of the body and sets the initial margin to 0px */
+	background-color: #FFFFFF;
+	margin:0px;
+	font-family:"Franklin Gothic Medium";
+	overflow-x: hidden;
+}
+
+h1 { /*Sets font style, color, and size of the heading. 
+	Also narrows the letter spacing to look better*/
+	font-family: 'Helvetica Neue', sans-serif;
+	font-size: 75px; 
+	font-weight: bold; 
+	letter-spacing: -1px;
+	color: #FFFFFF;
+}
+
+h2 {
+	font-family: "Franklin Gothic Medium";
+	font-size: 40px;
+	font-weight: bold;
+}
+
+h3 {
+	font-family: "Franklin Gothic Medium";
+	font-size: 30px;
+	font-weight: bold;
+}
+
+* {padding:0; /*Sets the padding/margin of everything to 0. Sets overall opacity to be 1*/
+	margin:0;
+	opacity:1;
+}
+
+nav { /*Creates navigation bar color and height */
+	background-color: #222930;
+	height:40px;
+	margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    width:100%;
+}
+
+nav ul li { /*Creates a border around the list items */
+	list-style-type: none;
+	width: 150px;
+	float: left;
+	text-align: center;
+	margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    font-family:'Franklin Gothic Medium', sans-serif;
+    font-size: 14px;
+}
+
+li a {/*Defines list link decoration, color, and height. Also sets the display to "block"*/
+	text-decoration:none;
+	color:#E9E9E9;
+	line-height: 40px;
+	display: block;
+}
+
+li a:hover { /*Changes the color of list elements when hovered over*/
+	color:#4EB1BA;
+	background-color:#E9E9E9;
+}
+
+p { /*Defines the style of standard paragraphs*/
+	opacity:0;
+	margin-left: 10px;
+	color:#001f3f;
+	font-family:'Franklin Gothic Medium', sans-serif ;
+	animation-name:Fade; /*Links to animation so all paragraphs will fade in
+	                       according to the described animation*/
+	animation-duration:1s;
+	animation-iteration-count: 1;
+	animation-fill-mode:forwards; /*Keeps the post animation state */
+}
+
+p a { /*Makes the help documentation link not show up as purple and 
+		underlined after click*/
+	text-decoration:none;
+	display:block;
+	color:#222930;
+}
+
+#mainmenu { /*Defines mainmenu id which is used in the heading*/
+	width: 100%;
+	height:90px;
+	background: #4EB1BA;
+	padding:0;
+	margin:0;
+}
+
+#navbar { /*Defines the navbar style used in the navigation bar*/
+	width: 100%;
+	height:40px;
+	background: #222930 ;
+}
+
+#instructions { /*Defines the style of the instructions paragraphs */
+	text-align:left;
+	font-size:32px;
+	padding-left:50px;
+	padding-right:100px;
+}
+
+#help { /*Defines the help documentation style and height. Creates the help documentation
+		  bubble which the user sees as well */
+	font-size:48px;
+	opacity:0;
+	border:2px #4EB1BA;
+	border-radius:100%;
+	height:48px;
+	width:45px;
+	background:#E9E9E9;
+	position:fixed;
+	z-index: +1;
+	text-align:left;
+	margin-left:15px;
+	cursor:help;
+	animation-name:Fade; /*Links to animation so the help bubble will fade in */
+	animation-duration:1s;
+	animation-iteration-count: 1;
+	animation-fill-mode:forwards; /*Keeps the post animation state */
+}
+
+
+#help:hover { /*Changes the help bubble color on hover*/
+	background-color:#4EB1BA;
+	color:#FFFFFF;
+}
+
+#signature { /*Shifts text to the right for signatures (When we sign as 
+	"The Circuit Solver Design Team)*/
+	text-align:right;
+	padding-right:100px;
+	font-size:32px;
+}
+
+
+#container{
+    text-align: center;
+}
+
+#container a {
+	text-decoration:none;
+}
+
+#container a:visited {
+	color: blue;
+}
+
+#jsTable {
+    border-collapse: collapse;
+    border-spacing: 0px;    
+    margin: 0px auto;
+    padding: 0px;
+    border: 0px;
+}
+
+#outputTable {
+	margin: 0px auto;
+	width: 400px;
+	text-align: center;
+	border: 0px solid #000000;
+	border-collapse: collapse;
+}
+
+#outputTable thead tr th,
+#outputTable tbody tr td {
+	border: 1px solid black;
+}
+
+.componentImg{
+	width: 156.5px;
+	height: 100px;
+}
+
+.contactImg {
+	width: 300px;
+	height: 300px;
+}
+
+.circuitTable {
+	width:156.5px;
+	height:100px;
+	padding:0px;
+	border:1px solid #aaaaaa;
+	float:center;
+	margin:0px;
+	border-collapse: collapse;
+	border-spacing: 0px 0px;
+}
+
+.helpImg {
+	width: 750px;
+	height: 450px;
+}
+
+.circuitSolverButtons {
+	background-color:#4EB1BA;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:"Franklin Gothic Medium";
+	font-size:20px;
+	font-weight:bold;
+	padding:13px 32px;
+	text-decoration:none;
+}
+
+.circuitSolverButtons:hover {
+	background-color:#408c99;
+}
+
+
+/* The entire card, perspective is constant to give flip impression*/
+.container {
+	perspective: 1000; 
+	margin-left:50px;
+	margin-top:25px;
+}
+	/* flip card when hovered over */
+	.container:hover .flip, .container.hover .flip {
+		transform: rotateY(180deg);
+	}
+
+.container, .front, .back {
+	width: 330px;
+	height: 330px;
+}
+
+/* set flip speed and position */
+.flip {
+	transition: 1s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front of the card set to be above the*/
+.front {
+	z-index: 2;
+	transform: rotateY(0deg);
+	background-color:#4EB1BA;
+	text-align:center;
+	color:white;
+	font-size:24pt;
+}
+
+.question {
+	font-size:16pt;
+	text-align:left;
+	margin:10px;
+
+}
+
+
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+	background-color:#E9E9E9;
+	text-align:center;
+}
+
+.answer {
+	text-align:left;
+	margin:15px;
+}
+
+.tutorial {
+	margin-left:75px;
+}
+
+.collapsible {
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  margin: 0.5rem 0 1rem 0;
+  width:50%;
+  text-align:center;
+  margin-left:25%;
+  list-style-type: none;
+}
+
+.collapsible-header {
+  display: block;
+  cursor: pointer;
+  min-height: 3rem;
+  line-height: 3rem;
+  padding: 0 1rem;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.collapsible-header i {
+  width: 2rem;
+  font-size: 1.6rem;
+  line-height: 3rem;
+  display: block;
+  float: left;
+  text-align: center;
+  margin-right: 1rem;
+}
+
+.collapsible-body {
+  display: none;
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+.collapsible-body p {
+  margin: 0;
+  padding: 2rem;
+}
+
+.side-nav .collapsible,
+.side-nav.fixed .collapsible {
+  border: none;
+  box-shadow: none;
+}
+
+.side-nav .collapsible li,
+.side-nav.fixed .collapsible li {
+  padding: 0;
+}
+
+.side-nav .collapsible-header,
+.side-nav.fixed .collapsible-header {
+  background-color: transparent;
+  border: none;
+  line-height: inherit;
+  height: inherit;
+  padding: 0 30px;
+}
+
+.side-nav .collapsible-header:hover,
+.side-nav.fixed .collapsible-header:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.side-nav .collapsible-header i,
+.side-nav.fixed .collapsible-header i {
+  line-height: inherit;
+}
+
+.side-nav .collapsible-body,
+.side-nav.fixed .collapsible-body {
+  border: 0;
+  background-color: #fff;
+}
+
+.side-nav .collapsible-body li a,
+.side-nav.fixed .collapsible-body li a {
+  padding: 0 37.5px 0 45px;
+}
+
+.collapsible.popout {
+  border: none;
+  box-shadow: none;
+}
+
+.collapsible.popout > li {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  margin: 0 24px;
+  transition: margin 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.collapsible.popout > li.active {
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+  margin: 16px 0;
+}
